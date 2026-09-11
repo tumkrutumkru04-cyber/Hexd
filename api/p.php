@@ -19,7 +19,7 @@ $hardcoded_keys = [
     'hexmods',
     'HEX-CIPHER-N6F8JG',
     'PIYUSH-HACKS',
-    'XITEXE-KEY',
+    'JOELITHON-MODS',
     'DRAGON-MODZ'
 ];
 
