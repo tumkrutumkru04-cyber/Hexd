@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "public": true,
   "rewrites": [
     { "source": "/api/p", "destination": "/api/p.php" },
     { "source": "/api/hexgen", "destination": "/api/hexgen.php" },
