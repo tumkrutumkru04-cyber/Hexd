@@ -17,7 +17,7 @@ if (empty($key) || empty($hwid)) {
 
 $hardcoded_keys = [
     'hexmods',
-    'HEX-CIPHER-N6F8JG',
+    'HEX-CIPHER-DGE55GH',
     'PIYUSH-HACKS',
     'JOELITHON-MODS',
     'XITEXE-75A3-F7718'
