@@ -11,7 +11,7 @@ $redis_token = "gQAAAAAAAqHnAAIgcDI0Zjk3ZTRiMWY2MTg0Mjc2YTVmYTMzNzZlY2M2OGE3OQ";
 $key = "HEX-CHEATS-" . strtoupper(bin2hex(random_bytes(2)));
 
 // 5 hours validity
-$expiry = time() + (5 * 3600);
+$expiry = time() + (10 * 3600);
 
 $key_data = [
     "key" => $key,
