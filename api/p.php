@@ -88,9 +88,9 @@ echo json_encode([
         "token" => md5(uniqid() . $hwid),
         "rng" => time(),
         "EXP" => "9999999999",
-        "modname" => "PLASMA CHEATS",
+        "modname" => "HEX CHEATS FUCK KIDS",
         "mod_status" => "Online",
-        "credit" => "@ARPANMODX",
+        "credit" => "@HeX_CiPhEr",
         "ESP" => "1", "Item" => "1", "AIM" => "1",
         "SilentAim" => "1", "BulletTrack" => "1",
         "Floating" => "1", "Memory" => "1", "Setting" => "1"
