@@ -4,14 +4,14 @@ header('Access-Control-Allow-Origin: *');
 
 date_default_timezone_set('Asia/Kolkata');
 
-$redis_url = "https://alive-minnow-172519.upstash.io";
-$redis_token = "gQAAAAAAAqHnAAIgcDI0Zjk3ZTRiMWY2MTg0Mjc2YTVmYTMzNzZlY2M2OGE3OQ";
+$redis_url = getenv('UPSTASH_REDIS_REST_URL');
+$redis_token = getenv('UPSTASH_REDIS_REST_TOKEN');
 
 // Generate key: HEX-CHEATS-XXXX
 $key = "HEX-CHEATS-" . strtoupper(bin2hex(random_bytes(2)));
 
-// 5 hours validity
-$expiry = time() + (10 * 3600);
+// 12 HOURS validity
+$expiry = time() + (12 * 3600);
 
 $key_data = [
     "key" => $key,
@@ -21,7 +21,7 @@ $key_data = [
     "created_at" => date('Y-m-d H:i:s'),
     "expires_at" => date('Y-m-d H:i:s', $expiry),
     "expiry_timestamp" => $expiry * 1000,
-    "validity" => "5 Hours",
+    "validity" => "12 Hours",
     "status" => "active"
 ];
 
@@ -40,7 +40,7 @@ curl_close($ch);
 echo json_encode([
     "status" => true,
     "key" => $key,
-    "validity" => "5 Hours",
+    "validity" => "12 Hours",
     "expires_at" => date('Y-m-d H:i:s', $expiry),
     "max_devices" => 1
 ], JSON_PRETTY_PRINT);
