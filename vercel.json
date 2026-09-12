@@ -3,11 +3,12 @@
   "rewrites": [
     { "source": "/api/p", "destination": "/api/p.php" },
     { "source": "/api/hexgen", "destination": "/api/hexgen.php" },
-    { "source": "/api/xitexegen", "destination": "/api/xitexegen.php" }
+    { "source": "/api/xitexegen", "destination": "/api/xitexegen.php" },
+    { "source": "/api/custom", "destination": "/api/custom.php" }
   ],
   "functions": {
     "api/*.php": {
-      "runtime": "vercel-php@0.6.2"
+      "runtime": "vercel-php@0.8.0"
     }
   }
 }
