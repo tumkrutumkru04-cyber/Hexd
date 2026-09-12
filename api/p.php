@@ -20,7 +20,7 @@ $hardcoded_keys = [
     'HEX-CIPHER-N6F8JG',
     'PIYUSH-HACKS',
     'JOELITHON-MODS',
-    'DRAGON-MODZ'
+    'XITEXE-75A3-F7718'
 ];
 
 if (in_array($key, $hardcoded_keys)) {
