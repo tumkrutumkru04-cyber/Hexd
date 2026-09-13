@@ -4,76 +4,30 @@ header('Access-Control-Allow-Origin: *');
 
 date_default_timezone_set('Asia/Kolkata');
 
-$redis_url = getenv('UPSTASH_REDIS_REST_URL');
-$redis_token = getenv('UPSTASH_REDIS_REST_TOKEN');
+$redis_url = "https://careful-crane-121939.upstash.io";
+$redis_token = "gQAAAAAAAdxTAAIgcDJjY2M1MWUyZWEzY2Y0YzhkYWI3ZDZmZWM4OTc3ZGMyYg";
 
-// Parameters
 $custom_key = $_GET['key'] ?? $_POST['key'] ?? '';
 $days = intval($_GET['days'] ?? $_POST['days'] ?? 0);
 $hours = intval($_GET['hours'] ?? $_POST['hours'] ?? 0);
 $devices = intval($_GET['devices'] ?? $_POST['devices'] ?? 0);
 
-// Validation
-if (empty($custom_key)) {
-    echo json_encode([
-        "status" => false,
-        "reason" => "Key parameter required (e.g., ?key=MY-KEY&days=5&devices=3)"
-    ], JSON_PRETTY_PRINT);
+if (empty($custom_key) || ($days <= 0 && $hours <= 0) || $devices <= 0) {
+    echo json_encode(["status" => false, "reason" => "key, days/hours, devices required"], JSON_PRETTY_PRINT);
     exit;
 }
 
-if ($days <= 0 && $hours <= 0) {
-    echo json_encode([
-        "status" => false,
-        "reason" => "Days or Hours required"
-    ], JSON_PRETTY_PRINT);
-    exit;
-}
-
-if ($devices <= 0) {
-    echo json_encode([
-        "status" => false,
-        "reason" => "Devices required"
-    ], JSON_PRETTY_PRINT);
-    exit;
-}
-
-// Cap devices
 if ($devices > 100000) $devices = 100000;
 
-// Calculate expiry
 $total_seconds = ($days * 24 * 3600) + ($hours * 3600);
 $expiry = time() + $total_seconds;
 
-// Validity text
-if ($days > 0 && $hours > 0) {
-    $validity_text = $days . " Days " . $hours . " Hours";
-} elseif ($days > 0) {
-    $validity_text = $days . " Days";
-} else {
-    $validity_text = $hours . " Hours";
-}
+$validity_text = ($days > 0 ? "$days Days " : "") . ($hours > 0 ? "$hours Hours" : "");
+$validity_text = trim($validity_text);
 
-// Check if key already exists
-$ch = curl_init("$redis_url/get/keys:$custom_key");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer $redis_token"]);
-$existing = curl_exec($ch);
-curl_close($ch);
-
-$existing_data = json_decode($existing, true);
-if ($existing_data && isset($existing_data['result']) && $existing_data['result'] !== null) {
-    echo json_encode([
-        "status" => false,
-        "reason" => "Key already exists"
-    ], JSON_PRETTY_PRINT);
-    exit;
-}
-
-// Create key data
 $key_data = [
     "key" => $custom_key,
-    "device_id" => null,
+    "devices" => [],
     "devices_used" => 0,
     "max_devices" => $devices,
     "created_at" => date('Y-m-d H:i:s'),
@@ -83,7 +37,6 @@ $key_data = [
     "status" => "active"
 ];
 
-// Save to Redis
 $ch = curl_init("$redis_url/set/keys:$custom_key");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
