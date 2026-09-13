@@ -17,7 +17,7 @@ if (empty($key) || empty($hwid)) {
 
 $hardcoded_keys = [
     'hexmods',
-    '',
+    'HEX-CIPHER-BFJFG767',
     '@Pobrevivereisempre-fuck-copykids',
     '',
     ''
