@@ -4,8 +4,8 @@ header('Access-Control-Allow-Origin: *');
 
 date_default_timezone_set('Asia/Kolkata');
 
-$redis_url = "https://alive-minnow-172519.upstash.io";
-$redis_token = "gQAAAAAAAqHnAAIgcDI0Zjk3ZTRiMWY2MTg0Mjc2YTVmYTMzNzZlY2M2OGE3OQ";
+$redis_url = "https://wealthy-gnat-110295.upstash.io";
+$redis_token = "gQAAAAAAAa7XAAIgcDI3N2ZhNmEyMWU0NTc0NjRmODQxNDE4NGVhMzBlN2RkNw";
 
 $key = $_GET['key'] ?? $_POST['key'] ?? $_GET['user_key'] ?? $_POST['user_key'] ?? '';
 $hwid = $_GET['hwid'] ?? $_POST['hwid'] ?? $_GET['serial'] ?? $_POST['serial'] ?? '';
