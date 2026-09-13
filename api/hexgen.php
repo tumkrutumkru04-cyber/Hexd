@@ -40,14 +40,4 @@ echo json_encode([
     "expires_at" => date('Y-m-d H:i:s', $expiry),
     "max_devices" => 10
 ], JSON_PRETTY_PRINT);
-?>curl_exec($ch);
-curl_close($ch);
-
-echo json_encode([
-    "status" => true,
-    "key" => $key,
-    "validity" => "12 Hours",
-    "expires_at" => date('Y-m-d H:i:s', $expiry),
-    "max_devices" => 1
-], JSON_PRETTY_PRINT);
 ?>
