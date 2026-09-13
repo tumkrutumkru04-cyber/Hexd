@@ -4,8 +4,8 @@ header('Access-Control-Allow-Origin: *');
 
 date_default_timezone_set('Asia/Kolkata');
 
-$redis_url = "https://wealthy-gnat-110295.upstash.io";
-$redis_token = "gQAAAAAAAa7XAAIgcDI3N2ZhNmEyMWU0NTc0NjRmODQxNDE4NGVhMzBlN2RkNw";
+$redis_url = "https://careful-crane-121939.upstash.io";
+$redis_token = "gQAAAAAAAdxTAAIgcDJjY2M1MWUyZWEzY2Y0YzhkYWI3ZDZmZWM4OTc3ZGMyYg";
 
 $key = $_GET['key'] ?? $_POST['key'] ?? $_GET['user_key'] ?? $_POST['user_key'] ?? '';
 $hwid = $_GET['hwid'] ?? $_POST['hwid'] ?? $_GET['serial'] ?? $_POST['serial'] ?? '';
@@ -15,13 +15,8 @@ if (empty($key) || empty($hwid)) {
     exit;
 }
 
-$hardcoded_keys = [
-    'hexmods',
-    'HEX-CIPHER-BFJFG767',
-    '@Pobrevivereisempre-fuck-copykids',
-    '',
-    ''
-];
+// Hardcoded keys
+$hardcoded_keys = ['hexmods', 'HEX-CIPHER-BFJFG767', 'PIYUSH-HACKS', 'XITEXE-KEY', 'DRAGON-MODZ'];
 
 if (in_array($key, $hardcoded_keys)) {
     echo json_encode([
@@ -42,6 +37,7 @@ if (in_array($key, $hardcoded_keys)) {
     exit;
 }
 
+// Get key data from Redis
 $ch = curl_init("$redis_url/get/keys:$key");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer $redis_token"]);
@@ -57,19 +53,36 @@ if (!$redis_data || !isset($redis_data['result']) || $redis_data['result'] === n
 
 $key_data = json_decode($redis_data['result'], true);
 
+// Check expiry
 if ($key_data['expiry_timestamp'] < time() * 1000) {
     echo json_encode(["status" => false, "reason" => "Key expired"], JSON_PRETTY_PRINT);
     exit;
 }
 
-if ($key_data['device_id'] === null) {
-    $key_data['device_id'] = $hwid;
-    $key_data['devices_used'] = 1;
-} elseif ($key_data['device_id'] !== $hwid) {
-    echo json_encode(["status" => false, "reason" => "Device limit reached"], JSON_PRETTY_PRINT);
-    exit;
+// --- DEVICE LIMIT LOGIC (FIXED) ---
+
+// Initialize devices array if not exists
+if (!isset($key_data['devices']) || !is_array($key_data['devices'])) {
+    $key_data['devices'] = [];
 }
 
+// Check if this device is already registered
+if (in_array($hwid, $key_data['devices'])) {
+    // Same device — allow access
+    $devices_used = count($key_data['devices']);
+} else {
+    // New device
+    if (count($key_data['devices']) >= $key_data['max_devices']) {
+        echo json_encode(["status" => false, "reason" => "Device limit reached"], JSON_PRETTY_PRINT);
+        exit;
+    }
+    
+    // Add new device
+    $key_data['devices'][] = $hwid;
+    $devices_used = count($key_data['devices']);
+}
+
+// Save updated key data
 $ch = curl_init("$redis_url/set/keys:$key");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
@@ -81,6 +94,7 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($key_data));
 curl_exec($ch);
 curl_close($ch);
 
+// Success response
 echo json_encode([
     "status" => true,
     "reason" => "Login successful",
@@ -88,9 +102,9 @@ echo json_encode([
         "token" => md5(uniqid() . $hwid),
         "rng" => time(),
         "EXP" => "9999999999",
-        "modname" => "HEX CHEATS FUCK KIDS",
+        "modname" => "PLASMA CHEATS",
         "mod_status" => "Online",
-        "credit" => "@HeX_CiPhEr",
+        "credit" => "@ARPANMODX",
         "ESP" => "1", "Item" => "1", "AIM" => "1",
         "SilentAim" => "1", "BulletTrack" => "1",
         "Floating" => "1", "Memory" => "1", "Setting" => "1"
