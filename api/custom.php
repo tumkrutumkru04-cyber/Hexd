@@ -5,7 +5,7 @@ header('Access-Control-Allow-Origin: *');
 date_default_timezone_set('Asia/Kolkata');
 
 $redis_url = "https://advanced-shepherd-122987.upstash.io";
-$redis_token = "gQAAAAAAAdxTAAIgcDJjY2M1MWUyZWEzY2Y0YzhkYWI3ZDZmZWM4OTc3ZGMyYg";
+$redis_token = "gQAAAAAAAeBrAAIgcDE5ZTdjYzk4YTc1MTU0ODMwYjk3NDBiNTgwNGRkNGIzZA";
 
 $custom_key = $_GET['key'] ?? $_POST['key'] ?? '';
 $days = intval($_GET['days'] ?? $_POST['days'] ?? 0);
