@@ -7,8 +7,6 @@ date_default_timezone_set('Asia/Kolkata');
 $redis_url = "https://advanced-shepherd-122987.upstash.io";
 $redis_token = "gQAAAAAAAeBrAAIgcDE5ZTdjYzk4YTc1MTU0ODMwYjk3NDBiNTgwNGRkNGIzZA";
 
-
-
 $key = "HEX-CHEATS-" . strtoupper(bin2hex(random_bytes(2)));
 $expiry = time() + (12 * 3600);
 
@@ -40,6 +38,6 @@ echo json_encode([
     "key" => $key,
     "validity" => "12 Hours",
     "expires_at" => date('Y-m-d H:i:s', $expiry),
-    "max_devices" => 10
+    "max_devices" => 1
 ], JSON_PRETTY_PRINT);
 ?>
