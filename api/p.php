@@ -16,7 +16,7 @@ if (empty($key) || empty($hwid)) {
 }
 
 // Hardcoded keys
-$hardcoded_keys = ['hexmods', 'HEX-CIPHER-BFJFG767', 'PIYUSH-HACKS', 'XITEXE-KEY', 'DRAGON-MODZ'];
+$hardcoded_keys = ['hexmods', 'SAMEER-BFJFG767', 'PIYUSH-HACKS', 'XITEXE-KEY', 'DRAGON-MODZ'];
 
 if (in_array($key, $hardcoded_keys)) {
     echo json_encode([
