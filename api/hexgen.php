@@ -4,8 +4,10 @@ header('Access-Control-Allow-Origin: *');
 
 date_default_timezone_set('Asia/Kolkata');
 
-$redis_url = "https://careful-crane-121939.upstash.io";
-$redis_token = "gQAAAAAAAdxTAAIgcDJjY2M1MWUyZWEzY2Y0YzhkYWI3ZDZmZWM4OTc3ZGMyYg";
+$redis_url = "https://advanced-shepherd-122987.upstash.io";
+$redis_token = "gQAAAAAAAeBrAAIgcDE5ZTdjYzk4YTc1MTU0ODMwYjk3NDBiNTgwNGRkNGIzZA";
+
+
 
 $key = "HEX-CHEATS-" . strtoupper(bin2hex(random_bytes(2)));
 $expiry = time() + (12 * 3600);
